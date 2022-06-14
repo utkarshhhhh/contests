@@ -1,0 +1,32 @@
+import java.util.*;
+public class chefgrd {
+
+    public static int solve(int n , int x, int y){
+        
+        int mid = (n+1)/2;
+        
+        int a = mid - x;
+        int b = mid - y;
+        
+        a = a<0? -a : a;
+        b = b<0? -b : b;
+
+        int sum = a+b;
+
+        return sum%2;
+    }
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here\
+		Scanner scn = new Scanner(System.in);
+        int t = scn.nextInt();
+        while (t-->0) {
+            int n = scn.nextInt();
+            int x = scn.nextInt();
+            int y = scn.nextInt();
+            System.out.println( solve(n,x,y) );
+        }
+        scn.close();
+	}
+    
+}
