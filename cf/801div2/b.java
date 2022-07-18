@@ -93,6 +93,61 @@ public class b {
         System.out.println( sum - cur );
     }
 
+    static class pair{
+        char c;
+        int n;
+        pair(char a, int b){
+            c = a;
+            n = b;
+        }
+    }
+	public static String rearrangeCharacters(String str) {
+	
+		//code here
+		int n = str.length();
+		int[] hash = new int[26];
+		
+		for(int i=0 ; i<n ; i++){
+		    hash[ str.charAt(i) - 'a' ]++;
+		}
+		
+		PriorityQueue<pair> pq = new PriorityQueue<>( (a,b)->{
+		    return b.n - a.n;
+		} );
+		
+		for( int i=0 ; i<26 ; i++ ){
+		    if( hash[i] > 0 ) pq.add( new pair( (char)(i+'a'), hash[i] ) );
+		}
+		
+		if( pq.poll().n > (n+1)/2 ){
+		    return "-1";
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		
+		while( pq.size() > 1 ){
+		    pair p1 = pq.poll();
+		    pair p2 = pq.poll();
+		    
+		    sb.append( p1.c );
+		    sb.append( p2.c );
+		    
+		    if( --p1.n > 0 ){
+		        pq.offer( p1 );
+		    }    
+		    
+		    if( --p2.n > 0 ){
+		        pq.offer( p2 );
+		    }    
+		}
+		
+	    if( pq.size() == 1 ){
+	        sb.append( pq.peek().c );
+	    }
+	    
+	    return sb.toString();
+	}
+
 
     public static void main(String[] args) throws java.lang.Exception {
         // your code goes here\
@@ -113,11 +168,12 @@ public class b {
         // System.out.println(checkXMatrix(grid) );
 
         // int[] nums1 = {60,60,60}, nums2 = {10,90,10};
-        int[] nums1 = {1,2,3,4,5,6,1}, nums2 = {50,20,50,40,20};
+        // int[] nums1 = {1,2,3,4,5,6,1}, nums2 = {50,20,50,40,20};
 
             // array(nums1, nums2);
-            maxScore( nums1 , 3);
+            // maxScore( nums1 , 3);
 
+           System.out.println( rearrangeCharacters( "geeksforgeeks" ) );
             
             
     }
